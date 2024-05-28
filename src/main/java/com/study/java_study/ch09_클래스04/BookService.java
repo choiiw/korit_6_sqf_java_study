@@ -47,6 +47,7 @@ public class BookService {
                 registerBook();
                 break;
             case "2":
+                search();
                 break;
             case "3":
                 break;
@@ -78,7 +79,7 @@ public class BookService {
         String bookName = null;
         while (true) {
             bookName = validateValue("도서");
-            if (bookRepository.findBookByBookName(bookName) == null) {    // 중복 체크
+            if (bookRepository.findBookByBookName(bookName) == null) {
                 break;
             }
             System.out.println("해당 도서명은 이미 존재합니다. 다시 입력하세요.");
@@ -100,4 +101,52 @@ public class BookService {
         System.out.println("새로운 도서를 등록하였습니다.");
     }
 
+    private void search(){
+        System.out.println("[도서 검색]");
+        System.out.println("1. 통합 검색");
+        System.out.println("2. 도서명 검색");
+        System.out.println("3. 저자명 검색");
+        System.out.println("4. 출판사명 검색");
+        System.out.print("옵션 선택: ");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("검색어 입력: ");
+        String searchText = scanner.nextLine();
+        BookEntity[] searchBooks = bookRepository.searchBooks(option, searchText);
+
+        System.out.println("[검색 결과]");
+        if(searchBooks.length == 0){
+            System.out.println("검색 결과가 없습니다.");
+            return;
+        }
+        for(BookEntity book : searchBooks){
+            System.out.println(book.toString());
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
