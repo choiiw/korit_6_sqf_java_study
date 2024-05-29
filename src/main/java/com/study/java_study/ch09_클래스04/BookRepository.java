@@ -11,8 +11,8 @@ public class BookRepository {
         books = new BookEntity[0];
     }
 
-    public int autoIncrementBookId(){
-         return  ++bookId;
+    public int autoIncrementBookId() {
+        return ++bookId;
     }
 
     private void extendBooks() {
@@ -28,8 +28,8 @@ public class BookRepository {
         books = newBooks;
     }
 
-    private int getLastIndex(){
-        return books.length -1;
+    private int getLastIndex() {
+        return books.length - 1;
     }
 
     public void saveBook(BookEntity book) {
@@ -41,7 +41,7 @@ public class BookRepository {
 
     }
 
-        // 단건 조회
+    // 단건 조회
     public BookEntity findBookByBookId(int bookId) {
         BookEntity findBook = null;
 
@@ -69,13 +69,13 @@ public class BookRepository {
 
     }
 
-    private int getNewArraySize(int option, String searchText){
+    private int getNewArraySize(int option, String searchText) {
         int newArraySize = 0;
 
 
         switch (option) {
             case 1:     //통합검색
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getBookName().contains(searchText)
                             || book.getAuthor().contains(searchText)
                             || book.getPublisher().contains(searchText)) {
@@ -84,21 +84,21 @@ public class BookRepository {
                 }
                 break;
             case 2:     // 도서명검색
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getBookName().contains(searchText)) {
                         newArraySize++;
                     }
                 }
                 break;
             case 3:     // 저자명검색
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getAuthor().contains(searchText)) {
                         newArraySize++;
                     }
                 }
                 break;
             case 4:     // 출판사검색
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getPublisher().contains(searchText)) {
                         newArraySize++;
                     }
@@ -108,8 +108,9 @@ public class BookRepository {
 
         return newArraySize;
     }
+
     // 다건조회
-    public BookEntity[] searchBooks(int option,String searchText) {
+    public BookEntity[] searchBooks(int option, String searchText) {
         int newArraySize = getNewArraySize(option, searchText);  // 새로운 배열을 만들기 위해 사용
 
         BookEntity[] searchBooks = new BookEntity[newArraySize];
@@ -117,7 +118,7 @@ public class BookRepository {
         int i = 0;
         switch (option) {
             case 1:     //통합검색
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getBookName().contains(searchText)
                             || book.getAuthor().contains(searchText)
                             || book.getPublisher().contains(searchText)) {
@@ -127,7 +128,7 @@ public class BookRepository {
                 }
                 break;
             case 2:     // 도서명검색
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getBookName().contains(searchText)) {
                         searchBooks[i] = book;
                         i++;
@@ -135,7 +136,7 @@ public class BookRepository {
                 }
                 break;
             case 3:     // 저자명검색
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getAuthor().contains(searchText)) {
                         searchBooks[i] = book;
                         i++;
@@ -143,7 +144,7 @@ public class BookRepository {
                 }
                 break;
             case 4:     // 출판사검색\
-                for(BookEntity book : books) {
+                for (BookEntity book : books) {
                     if (book.getPublisher().contains(searchText)) {
                         searchBooks[i] = book;
                         i++;
@@ -153,6 +154,34 @@ public class BookRepository {
         }
         return searchBooks;
     }
+    // 도서 삭제
+    private int indexOfBookId(int bookId){
+        int findIndex = -1;
+
+        for (int i = 0; i < books.length; i++) {
+            if (books[i].getBookId() == bookId) {
+                findIndex = i;
+                break;
+            }
+        }
+        return findIndex;
+    }
+
+    public void deleteBookByBookId(int bookId) {
+        int findIndex = indexOfBookId(bookId);     // 찾기
+        BookEntity[] newBooks = new BookEntity[books.length - 1];
+
+
+        for (int i = 0; i < newBooks.length; i++) {
+            if (i < findIndex) {
+                newBooks[i] = books[i];
+                continue;
+            }
+            newBooks[i] = books[i + 1];
+        }
+        books = newBooks;
+    }
+
 }
 
 
