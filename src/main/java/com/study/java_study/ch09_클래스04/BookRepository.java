@@ -1,6 +1,8 @@
 package com.study.java_study.ch09_클래스04;
 
 
+import java.util.Arrays;
+
 // 저장소 -> CRUD
 public class BookRepository {
 
@@ -17,15 +19,16 @@ public class BookRepository {
 
     private void extendBooks() {
         // 기존 배열보다 크기가 하나 더 큰 배열을 생성한다.
-        BookEntity[] newBooks = new BookEntity[books.length + 1];
+//        BookEntity[] newBooks = new BookEntity[books.length + 1];
 
         // 기존 배열의 정보를 새로운 배열로 모두 옮긴다. 이 때 마지막 인덱스의 값은 빈값이다.
-        for (int i = 0; i < books.length; i++) {
-            newBooks[i] = books[i];
-        }
+//        for (int i = 0; i < books.length; i++) {
+//            newBooks[i] = books[i];
+//        }
 
         // 기존 배열의 주소가 들어있는 books 변수에 새로운 배열의 주소를 대입한다.
-        books = newBooks;
+//        books = newBooks;
+        books = Arrays.copyOf(books, books.length + 1);
     }
 
     private int getLastIndex() {
@@ -154,8 +157,9 @@ public class BookRepository {
         }
         return searchBooks;
     }
+
     // 도서 삭제
-    private int indexOfBookId(int bookId){
+    private int indexOfBookId(int bookId) {
         int findIndex = -1;
 
         for (int i = 0; i < books.length; i++) {
@@ -169,6 +173,7 @@ public class BookRepository {
 
     public void deleteBookByBookId(int bookId) {
         int findIndex = indexOfBookId(bookId);     // 찾기
+
         BookEntity[] newBooks = new BookEntity[books.length - 1];
 
 
