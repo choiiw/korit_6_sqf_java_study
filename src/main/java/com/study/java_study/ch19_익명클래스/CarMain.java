@@ -5,6 +5,18 @@ public class CarMain {
         KiaCar kiaCar = new KiaCar("k8", "화이트");
         System.out.println(kiaCar);
 
+//        KiaCar kiaCar2 = new KiaCar("k9","블랙"){
+//            @Override
+//            public void createCar() {
+//                super.createCar();
+//            }
+//
+//            @Override
+//            public void showCar() {
+//                super.showCar();
+//            }
+//        };
+
         AbstractCar abstractCar = new AbstractCar("내가만든자동차","블랙") {
             @Override
             public void createCar() {
@@ -16,6 +28,5 @@ public class CarMain {
                 System.out.println("자동차 정보...");
             }
         };
-
     }
 }
